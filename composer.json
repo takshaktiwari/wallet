@@ -1,0 +1,26 @@
+{
+    "name": "takshak/wallet",
+    "keywords": ["laravel", "wallet"],
+    "description": "User wallet system for laravel application",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Takshak Tiwari",
+            "email": "takshaktiwari@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4" : {
+            "Takshak\\Wallet\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Takshak\\Wallet\\WalletServiceProvider"
+            ]
+        }
+    }
+}
