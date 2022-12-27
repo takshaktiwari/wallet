@@ -3,7 +3,7 @@
 Laravel package to manage user wallet system. This can also manage multiple wallets for a single user / model. It is a multi wallet system to manage different wallet balances and also track the transactions history, like: deposit or withdraw and each transaction can reference to other models,for eg: If amount has deducted for some Product's payment, that product model can also be tracked. Read further for the usage instructions. 
 
 #
-## Integration
+## Integration & Setup
 
 Just like other php packages, install this using composer.
 
@@ -37,17 +37,36 @@ Add 'HasWalletTransaction' traits to the models which needs to be referenced for
         use HasWalletTransaction;
     }
 
-## Other features
+## Wallet features
 
- - Create wallet
- - Get wallet 
- - Get Balance
- - Deposit to wallet
- - Withdraw from wallet
- - Transfer to other wallet
- - Get wallet transactions
+ - [Basic Usage](#basic-usage)
+ - [Create wallet](#create-wallet)
+ - [Get wallet](#get-wallet)
+ - [Get Balance](#get-balance)
+ - [Deposit to wallet](#deposit-to-wallet)
+ - [Withdraw from wallet](#withdraw-from-wallet)
+ - [Transfer to other wallet](#transfer-to-other-wallet)
+ - [Get wallet transactions](#get-wallet-transactions)
 
 Let's assume the our user has wallet system and we added 'HasWallet' trait to our User model. There will be two models 'Wallet' and 'WalletTransaction' which will be used for managing all the operations.
+
+### Basic Usage
+
+    # get wallet balance
+    $user->wallet()->balance(); 
+
+    # deposit 200 to wallet
+    $user->wallet()->balance(200);
+    $user->wallet()->deposit(200);
+
+    # withdraw 200 from wallet
+    $user->wallet()->balance(-200);
+    $user->wallet()->withdraw(200);
+    $user->wallet()->forceWithdraw(200);
+
+    # transfer to another wallet
+    $user->wallet()->transfer($user2->wallet(), 200); 
+    $user->wallet()->forceTransfer($user2->wallet(), 200); 
 
 ### Create wallet
 
@@ -117,7 +136,7 @@ Deposit amount with some extra information and get the updated balance
 
 ### Withdraw from wallet
 
-Withdraw works just like deposit but it will throw and arrow if you withdraw more than the available balance. If you want to withdraw anyhow then you can use force withdraw which will make the wallet balance in negative if there is not sufficient balance. Some examples are:
+Withdraw works just like deposit but it will throw and arrow if you withdraw more than the available balance. If you want to withdraw anyhow then you can use force withdraw which will make the wallet balance in negative if there is not sufficient balance. Withdraw will not accept the negative amount. Some examples are:
 
     # simply withdraw 200
     $user->wallet()->withdraw(200); 
@@ -147,7 +166,7 @@ Withdraw works just like deposit but it will throw and arrow if you withdraw mor
         ->balance; // get the balance
 
 ### Transfer to other wallet
-You can transfer balance to user's another wallet or may be be another's user wallet. It will throw and arrow if you transfer more than the available balance. If you want to transfer anyhow then you can use force transfer which will make the wallet balance in negative if there is not sufficient balance. Some Examples:
+You can transfer balance to user's another wallet or may be be another's user wallet. It will throw and arrow if you transfer more than the available balance. If you want to transfer anyhow then you can use force transfer which will make the wallet balance in negative if there is not sufficient balance. You are not allowed to pass negative amount. Some Examples:
 
     # transfer 200 to user's wallet
     $user->wallet()->amount(200)->transfer($user->getWallet('other'));
