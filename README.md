@@ -2,7 +2,6 @@
 
 Laravel package to manage user wallet system. This can also manage multiple wallets for a single user / model. It is a multi wallet system to manage different wallet balances and also track the transactions history, like: deposit or withdraw and each transaction can reference to other models,for eg: If amount has deducted for some Product's payment, that product model can also be tracked. Read further for the usage instructions. 
 
-#
 ## Integration & Setup
 
 Just like other php packages, install this using composer.
