@@ -42,13 +42,13 @@ class Wallet
         return $this;
     }
 
-    public function title(string $title)
+    public function title(string|null $title)
     {
         $this->title = $title;
         return $this;
     }
 
-    public function remarks(string $remarks)
+    public function remarks(string|null $remarks)
     {
         $this->remarks = $remarks;
         return $this;
