@@ -79,13 +79,15 @@ class Wallet
         return $this;
     }
 
-    public function withdraw(float $amount = null, bool $force = false, string $title = '')
+    public function withdraw(float $amount = null, bool $force = null, string $title = '')
     {
         $this->amount = $amount ? $amount : $this->amount;
-        if ($amount < 0) {
+        $this->force = !is_null($force) ? $force : $this->force;
+
+        if ($this->amount < 0) {
             throw new \ErrorException('Withdrawal amount should be greater than 0');
         }
-        if (!$force && $this->balance < $amount) {
+        if (!$this->force && $this->balance < $this->amount) {
             throw new \ErrorException('Insufficient Balance');
         }
 
